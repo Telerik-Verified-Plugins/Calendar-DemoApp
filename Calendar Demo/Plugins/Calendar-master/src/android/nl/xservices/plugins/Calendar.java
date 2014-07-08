@@ -192,7 +192,10 @@ public class Calendar extends CordovaPlugin {
           argObject.isNull("notes") ? null : argObject.getString("notes"),
           argObject.isNull("location") ? null : argObject.getString("location"),
           argOptionsObject.isNull("firstReminderMinutes") ? null : argOptionsObject.getLong("firstReminderMinutes"),
-          argOptionsObject.isNull("secondReminderMinutes") ? null : argOptionsObject.getLong("secondReminderMinutes"));
+          argOptionsObject.isNull("secondReminderMinutes") ? null : argOptionsObject.getLong("secondReminderMinutes"),
+          argOptionsObject.isNull("recurrence") ? null : argOptionsObject.getString("recurrence"),
+          argOptionsObject.isNull("recurrenceEndTime") ? null : argOptionsObject.getLong("recurrenceEndTime")
+      );
 
       callback.success("" + status);
       return true;
@@ -227,16 +230,27 @@ public class Calendar extends CordovaPlugin {
       calendar_end.setTime(date_end);
 
       //projection of DB columns
-      String[] l_projection = new String[]{"title", "dtstart", "dtend", "eventLocation", "allDay"};
+      String[] l_projection = new String[]{"calendar_id", "title", "dtstart", "dtend", "eventLocation", "allDay"};
 
       //actual query
-      Cursor cursor = contentResolver.query(l_eventUri, l_projection, "( dtstart >" + calendar_start.getTimeInMillis() + " AND dtend <" + calendar_end.getTimeInMillis() + ")", null, "dtstart ASC");
+      Cursor cursor = contentResolver.query(l_eventUri, l_projection, "( dtstart >" + calendar_start.getTimeInMillis() + " AND dtend <" + calendar_end.getTimeInMillis() + " AND deleted = 0)", null, "dtstart ASC");
 
       int i = 0;
       while (cursor.moveToNext()) {
-        result.put(i++, new JSONObject().put("title", cursor.getString(0)).put("dtstart", cursor.getLong(1)).put("dtend", cursor.getLong(2)).put("eventLocation", cursor.getString(3) != null ? cursor.getString(3) : "").put("allDay", cursor.getInt(4)));
+        result.put(
+            i++,
+            new JSONObject()
+                .put("calendar_id", cursor.getString(cursor.getColumnIndex("calendar_id")))
+                .put("title", cursor.getString(cursor.getColumnIndex("title")))
+                .put("dtstart", cursor.getLong(cursor.getColumnIndex("dtstart")))
+                .put("dtend", cursor.getLong(cursor.getColumnIndex("dtend")))
+                .put("eventLocation", cursor.getString(cursor.getColumnIndex("eventLocation")) != null ? cursor.getString(cursor.getColumnIndex("eventLocation")) : "")
+                .put("allDay", cursor.getInt(cursor.getColumnIndex("allDay")))
+        );
       }
-      callback.success("" + result);
+
+      PluginResult res = new PluginResult(PluginResult.Status.OK, result);
+      callback.sendPluginResult(res);
       return true;
     } catch (JSONException e) {
       System.err.println("Exception: " + e.getMessage());
