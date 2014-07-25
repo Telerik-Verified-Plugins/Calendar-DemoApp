@@ -90,11 +90,15 @@
         },
         
         checkSimulator: function() {
-            if (window.plugins === undefined) {
-                alert('Plugin not available. Are you running in the simulator?');
+            if (window.navigator.simulator === true) {
+                alert('This plugin is not available in the simulator.');
                 return true;
+            } else if (window.plugins === undefined || window.plugins.calendar === undefined) {
+                alert('Plugin not found. Maybe you are running in AppBuilder Companion app which currently does not support this plugin.');
+                return true;
+            } else {
+                return false;
             }
-            return false;
         },
 
         // callbacks
