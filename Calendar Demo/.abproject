@@ -4,7 +4,7 @@
   "AppIdentifier": "com.telerik.plugindemo.calendar",
   "ProjectName": "Calendar Demo",
   "IsRunnable": "true",
-  "FrameworkVersion": "3.5.0",
+  "FrameworkVersion": "3.7.0",
   "AndroidPermissions": [
     "android.permission.CAMERA",
     "android.permission.VIBRATE",
@@ -26,22 +26,10 @@
     "android.permission.BROADCAST_STICKY"
   ],
   "CorePlugins": [
-    "org.apache.cordova.battery-status",
-    "org.apache.cordova.camera",
-    "org.apache.cordova.media-capture",
     "org.apache.cordova.console",
-    "org.apache.cordova.contacts",
     "org.apache.cordova.device",
-    "org.apache.cordova.device-motion",
-    "org.apache.cordova.device-orientation",
-    "org.apache.cordova.file",
-    "org.apache.cordova.file-transfer",
-    "org.apache.cordova.geolocation",
-    "org.apache.cordova.globalization",
-    "org.apache.cordova.inappbrowser",
-    "org.apache.cordova.media",
-    "org.apache.cordova.network-information",
     "org.apache.cordova.dialogs",
+    "org.apache.cordova.network-information",
     "org.apache.cordova.splashscreen",
     "org.apache.cordova.statusbar",
     "org.apache.cordova.vibration"
@@ -61,5 +49,11 @@
   "Description": "Calendar Demo",
   "DisplayName": "Calendar plugin demo",
   "Author": "Telerik",
-  "Framework": "Cordova"
+  "Framework": "Cordova",
+  "projectVersion": "1",
+  "WP8WindowsPublisherName": "CN=Telerik",
+  "WP8PackageIdentityName": "1234Telerik.com.telerik.plugindemo.calendar",
+  "WP8PublisherID": "{6bdba916-eb20-499e-9477-d1eb9a272b00}",
+  "WP8ProductID": "{a48e521c-4363-46e3-b6cb-5e556cb6e578}",
+  "CordovaPluginVariables": {}
 }
