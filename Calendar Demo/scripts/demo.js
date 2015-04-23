@@ -29,9 +29,10 @@
 
         createEventWithOptions: function () {
             if (!this.checkSimulator()) {
-                var calOptions = window.plugins.calendar.getCalendarOptions(); // grab the defaults
-                calOptions.firstReminderMinutes = 120; // default is 60, pass in null for no reminder/alarm
-                calOptions.secondReminderMinutes = 60;
+              var calOptions = window.plugins.calendar.getCalendarOptions(); // grab the defaults
+              calOptions.firstReminderMinutes = 120; // default is 60, pass in null for no reminder/alarm
+              calOptions.secondReminderMinutes = 60;
+              calOptions.url = "https://www.telerik.com";
             	window.plugins.calendar.createEventWithOptions(title, location, notes, startDate, endDate, calOptions, this.onSuccess, this.onError);
             }
         },

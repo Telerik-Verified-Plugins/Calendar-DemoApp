@@ -21,6 +21,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Date;
+import java.util.TimeZone;
 
 public class Calendar extends CordovaPlugin {
   public static final String ACTION_OPEN_CALENDAR = "openCalendar";
@@ -125,9 +126,9 @@ public class Calendar extends CordovaPlugin {
     return false;
   }
 
-
   private boolean createEventInteractively(JSONArray args) throws JSONException {
     final JSONObject jsonFilter = args.getJSONObject(0);
+    final JSONObject argOptionsObject = jsonFilter.getJSONObject("options");
 
     final Intent calIntent = new Intent(Intent.ACTION_EDIT)
         .setType("vnd.android.cursor.item/event")
@@ -142,9 +143,20 @@ public class Calendar extends CordovaPlugin {
     if (!jsonFilter.isNull("location")) {
       calIntent.putExtra("eventLocation", jsonFilter.optString("location"));
     }
+    String description = null;
     if (!jsonFilter.isNull("notes")) {
-      calIntent.putExtra("description", jsonFilter.optString("notes"));
+      description = jsonFilter.optString("notes");
     }
+    // there's no separate url field, so adding it to the notes
+    if (!argOptionsObject.isNull("url")) {
+      if (description == null) {
+        description = argOptionsObject.optString("url");
+      } else {
+        description += " " + argOptionsObject.optString("url");
+      }
+    }
+    calIntent.putExtra("description", description);
+    calIntent.putExtra("calendar_id", argOptionsObject.isNull("calendarId") ? 1 : argOptionsObject.getInt("calendarId"));
 
     this.cordova.startActivityForResult(this, calIntent, RESULT_CODE_CREATE);
     return true;
@@ -228,7 +240,8 @@ public class Calendar extends CordovaPlugin {
           argOptionsObject.isNull("secondReminderMinutes") ? null : argOptionsObject.getLong("secondReminderMinutes"),
           argOptionsObject.isNull("recurrence") ? null : argOptionsObject.getString("recurrence"),
           argOptionsObject.isNull("recurrenceEndTime") ? null : argOptionsObject.getLong("recurrenceEndTime"),
-          argOptionsObject.isNull("calendarId") ? 1 : argOptionsObject.getInt("calendarId"));
+          argOptionsObject.isNull("calendarId") ? 1 : argOptionsObject.getInt("calendarId"),
+          argOptionsObject.isNull("url") ? null : argOptionsObject.getString("url"));
 
       callback.success();
       return true;
@@ -267,7 +280,19 @@ public class Calendar extends CordovaPlugin {
       String[] l_projection = new String[]{"calendar_id", "title", "dtstart", "dtend", "eventLocation", "allDay"};
 
       //actual query
-      Cursor cursor = contentResolver.query(l_eventUri, l_projection, "( dtstart >" + calendar_start.getTimeInMillis() + " AND dtend <" + calendar_end.getTimeInMillis() + " AND deleted = 0)", null, "dtstart ASC");
+      Cursor cursor = contentResolver.query(
+          l_eventUri,
+          l_projection,
+          "(deleted = 0 AND" +
+              "   (" +
+              // all day events are stored in UTC, others in the user's timezone
+              "     (eventTimezone  = 'UTC' AND dtstart >=" + (calendar_start.getTimeInMillis() + TimeZone.getDefault().getOffset(calendar_start.getTimeInMillis())) + " AND dtend <=" + (calendar_end.getTimeInMillis() + TimeZone.getDefault().getOffset(calendar_end.getTimeInMillis())) + ")" +
+              "     OR " +
+              "     (eventTimezone <> 'UTC' AND dtstart >=" + calendar_start.getTimeInMillis() + " AND dtend <=" + calendar_end.getTimeInMillis() + ")" +
+              "   )" +
+              ")",
+          null,
+          "dtstart ASC");
 
       int i = 0;
       while (cursor.moveToNext()) {
