@@ -24,12 +24,10 @@
 
 - (void)createEventWithOptions:(CDVInvokedUrlCommand*)command;
 - (void)createEventInteractively:(CDVInvokedUrlCommand*)command;
-- (void)createEventInNamedCalendar:(CDVInvokedUrlCommand*)command;
 
-- (void)modifyEvent:(CDVInvokedUrlCommand*)command;
-- (void)modifyEventInNamedCalendar:(CDVInvokedUrlCommand*)command;
+- (void)modifyEventWithOptions:(CDVInvokedUrlCommand*)command;
 
-- (void)findEvent:(CDVInvokedUrlCommand*)command;
+- (void)findEventWithOptions:(CDVInvokedUrlCommand*)command;
 - (void)findAllEventsInNamedCalendar:(CDVInvokedUrlCommand*)command;
 
 - (void)listCalendars:(CDVInvokedUrlCommand*)command;

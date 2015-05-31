@@ -120,6 +120,27 @@ or to use a specific version:
 
 ## 3. Usage
 
+The table gives an overview of basic operation compatibility:
+
+Operation                           | Comment     | iOS | Android
+----------------------------------- | ----------- | --- | -------
+createCalendar                      |             | yes | 
+deleteCalendar                      |             | yes | 
+createEvent                         | silent      | yes | yes (on Android < 4 dialog is shown)
+createEventWithOptions              | silent      | yes | yes (on Android < 4 dialog is shown)
+createEventInteractively            | interactive | yes | yes
+createEventInteractivelyWithOptions | interactive | yes | yes
+findEvent                           |             | yes | yes
+findEventWithOptions                |             | yes | yes
+listEventsInRange                   |             |     | yes
+listCalendars                       |             | yes | yes
+findAllEventsInNamedCalendars       |             | yes | 
+modifyEvent                         |             | yes | 
+modifyEventWithOptions              |             | yes | 
+deleteEvent                         |             | yes | yes
+deleteEventFromNamedCalendar        |             | yes | 
+openCalendar                        |             | yes | yes
+
 Basic operations, you'll want to copy-paste this for testing purposes:
 
 ```javascript
@@ -160,6 +181,7 @@ Basic operations, you'll want to copy-paste this for testing purposes:
   // And the URL can be passed since 4.3.2 (will be appended to the notes on Android as there doesn't seem to be a sep field)
   calOptions.url = "https://www.google.com";
 
+  // on iOS the success handler receives the event ID (since 4.3.6)
   window.plugins.calendar.createEventWithOptions(title,eventLocation,notes,startDate,endDate,calOptions,success,error);
 
   // create an event interactively
@@ -168,11 +190,17 @@ Basic operations, you'll want to copy-paste this for testing purposes:
   // create an event interactively with the calOptions object as shown above
   window.plugins.calendar.createEventInteractivelyWithOptions(title,eventLocation,notes,startDate,endDate,calOptions,success,error);
 
-  // create an event in a named calendar (iOS only for now)
+  // create an event in a named calendar (iOS only, deprecated, use createEventWithOptions instead)
   window.plugins.calendar.createEventInNamedCalendar(title,eventLocation,notes,startDate,endDate,calendarName,success,error);
 
   // find events (on iOS this includes a list of attendees (if any))
   window.plugins.calendar.findEvent(title,eventLocation,notes,startDate,endDate,success,error);
+
+  // if you need to find events in a specific calendar, use this one. All options are currently ignored when finding events, except for the calendarName.
+  var calOptions = window.plugins.calendar.getCalendarOptions();
+  calOptions.calendarName = "MyCreatedCalendar"; // iOS only
+  calOptions.id = "D9B1D85E-1182-458D-B110-4425F17819F1"; // iOS only, get it from createEventWithOptions (if not found, we try matching against title, etc)
+  window.plugins.calendar.findEventWithOptions(title,eventLocation,notes,startDate,endDate,calOptions,success,error);
 
   // list all events in a date range (only supported on Android for now)
   window.plugins.calendar.listEventsInRange(startDate,endDate,success,error);
@@ -186,6 +214,16 @@ Basic operations, you'll want to copy-paste this for testing purposes:
   // change an event (iOS only for now)
   var newTitle = "New title!";
   window.plugins.calendar.modifyEvent(title,eventLocation,notes,startDate,endDate,newTitle,eventLocation,notes,startDate,endDate,success,error);
+
+  // or to add a reminder, make it recurring, change the calendar, or the url, use this one:
+  var filterOptions = window.plugins.calendar.getCalendarOptions(); // or {} or null for the defaults
+  filterOptions.calendarName = "Bla"; // only filter option currently implemented (iOS only)
+  filterOptions.id = "D9B1D85E-1182-458D-B110-4425F17819F1"; // iOS only, get it from createEventWithOptions (if not found, we try matching against title, etc)
+  var newOptions = window.plugins.calendar.getCalendarOptions();
+  newOptions.calendaName = "New Bla"; // make sure this calendar exists before moving the event to it
+  // not passing in reminders will wipe them from the event. To wipe the default first reminder (60), set it to null.
+  newOptions.firstReminderMinutes = 120;
+  window.plugins.calendar.modifyEventWithOptions(title,eventLocation,notes,startDate,endDate,newTitle,eventLocation,notes,startDate,endDate,filterOptions,newOptions,success,error);
 
   // delete an event (you can pass nulls for irrelevant parameters, note that on Android `notes` is ignored). The dates are mandatory and represent a date range to delete events in.
   // note that on iOS there is a bug where the timespan must not be larger than 4 years, see issue 102 for details.. call this method multiple times if need be

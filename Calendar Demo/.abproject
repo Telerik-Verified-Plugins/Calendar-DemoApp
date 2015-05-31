@@ -4,7 +4,7 @@
   "AppIdentifier": "com.telerik.plugindemo.calendar",
   "ProjectName": "Calendar Demo",
   "IsRunnable": "true",
-  "FrameworkVersion": "3.7.0",
+  "FrameworkVersion": "3.8.0",
   "AndroidPermissions": [
     "android.permission.CAMERA",
     "android.permission.VIBRATE",
@@ -45,7 +45,7 @@
     "ID_RESOLUTION_WXGA",
     "ID_RESOLUTION_HD720P"
   ],
-  "BundleVersion": "1.0",
+  "BundleVersion": "1.0.1",
   "Description": "Calendar Demo",
   "DisplayName": "Calendar plugin demo",
   "Author": "Telerik",
@@ -55,5 +55,6 @@
   "WP8PackageIdentityName": "1234Telerik.com.telerik.plugindemo.calendar",
   "WP8PublisherID": "{6bdba916-eb20-499e-9477-d1eb9a272b00}",
   "WP8ProductID": "{a48e521c-4363-46e3-b6cb-5e556cb6e578}",
-  "CordovaPluginVariables": {}
+  "CordovaPluginVariables": {},
+  "AndroidVersionCode": "2"
 }
