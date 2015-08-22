@@ -30,9 +30,15 @@
         createEventWithOptions: function () {
             if (!this.checkSimulator()) {
               var calOptions = window.plugins.calendar.getCalendarOptions(); // grab the defaults
+              calOptions.url = "https://www.telerik.com";
+              // reminderd
               calOptions.firstReminderMinutes = 120; // default is 60, pass in null for no reminder/alarm
               calOptions.secondReminderMinutes = 60;
-              calOptions.url = "https://www.telerik.com";
+              // recurrance
+              calOptions.recurrence = "monthly"; // supported are: daily, weekly, monthly, yearly
+              calOptions.recurrenceEndDate = new Date(2016,10,1,0,0,0,0,0); // leave empty to recur forever
+              calOptions.recurrenceInterval = 2; // once every 2 months in this case, default: 1
+              // go, go!
             	window.plugins.calendar.createEventWithOptions(title, location, notes, startDate, endDate, calOptions, this.onSuccess, this.onError);
             }
         },
