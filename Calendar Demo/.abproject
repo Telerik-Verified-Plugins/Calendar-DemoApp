@@ -47,7 +47,7 @@
     "ID_RESOLUTION_WXGA",
     "ID_RESOLUTION_HD720P"
   ],
-  "BundleVersion": "1.0.2",
+  "BundleVersion": "1.0.3",
   "Description": "Calendar Demo",
   "DisplayName": "Calendar plugin demo",
   "Author": "Telerik",
@@ -58,5 +58,5 @@
   "WP8PublisherID": "{6bdba916-eb20-499e-9477-d1eb9a272b00}",
   "WP8ProductID": "{a48e521c-4363-46e3-b6cb-5e556cb6e578}",
   "CordovaPluginVariables": {},
-  "AndroidVersionCode": "2"
+  "AndroidVersionCode": "3"
 }
