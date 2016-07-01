@@ -34,7 +34,7 @@
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
     "cordova-plugin-vibration",
-    "nl.x-services.plugins.calendar@4.4.7"
+    "nl.x-services.plugins.calendar@4.5.1"
   ],
   "DeviceOrientations": [
     "Portrait",
