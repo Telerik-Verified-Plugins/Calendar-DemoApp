@@ -1,0 +1,61 @@
+{
+  "ProjectGuid": "e9adc95f-f030-4ba7-a1e2-ff2b97f6207b",
+  "ProjectTypeGuids": "{070BCB52-5A75-4F8C-A973-144AF0EAFCC9}",
+  "AppIdentifier": "com.telerik.plugindemo.calendar",
+  "ProjectName": "Calendar Demo",
+  "IsRunnable": "true",
+  "FrameworkVersion": "5.0.0",
+  "AndroidPermissions": [
+    "android.permission.CAMERA",
+    "android.permission.VIBRATE",
+    "android.permission.ACCESS_COARSE_LOCATION",
+    "android.permission.ACCESS_FINE_LOCATION",
+    "android.permission.ACCESS_LOCATION_EXTRA_COMMANDS",
+    "android.permission.READ_PHONE_STATE",
+    "android.permission.INTERNET",
+    "android.permission.RECEIVE_SMS",
+    "android.permission.RECORD_AUDIO",
+    "android.permission.MODIFY_AUDIO_SETTINGS",
+    "android.permission.READ_CONTACTS",
+    "android.permission.WRITE_CONTACTS",
+    "android.permission.WRITE_EXTERNAL_STORAGE",
+    "android.permission.ACCESS_NETWORK_STATE",
+    "android.permission.ACCOUNT_MANAGER",
+    "android.permission.GET_ACCOUNTS",
+    "android.permission.MANAGE_ACCOUNTS",
+    "android.permission.BROADCAST_STICKY"
+  ],
+  "CorePlugins": [
+    "cordova-plugin-console",
+    "cordova-plugin-device",
+    "cordova-plugin-dialogs",
+    "cordova-plugin-network-information",
+    "cordova-plugin-splashscreen",
+    "cordova-plugin-statusbar",
+    "cordova-plugin-vibration",
+    "nl.x-services.plugins.calendar@4.5.5"
+  ],
+  "DeviceOrientations": [
+    "Portrait",
+    "Landscape"
+  ],
+  "iOSStatusBarStyle": "Default",
+  "AndroidHardwareAcceleration": "true",
+  "WP8SupportedResolutions": [
+    "ID_RESOLUTION_WVGA",
+    "ID_RESOLUTION_WXGA",
+    "ID_RESOLUTION_HD720P"
+  ],
+  "BundleVersion": "1.0.4",
+  "Description": "Calendar Demo",
+  "DisplayName": "Calendar plugin demo",
+  "Author": "Telerik",
+  "Framework": "Cordova",
+  "projectVersion": "1",
+  "WP8WindowsPublisherName": "CN=Telerik",
+  "WP8PackageIdentityName": "1234Telerik.com.telerik.plugindemo.calendar",
+  "WP8PublisherID": "{6bdba916-eb20-499e-9477-d1eb9a272b00}",
+  "WP8ProductID": "{a48e521c-4363-46e3-b6cb-5e556cb6e578}",
+  "CordovaPluginVariables": {},
+  "AndroidVersionCode": "3"
+}
