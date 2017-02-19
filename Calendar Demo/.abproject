@@ -4,7 +4,7 @@
   "AppIdentifier": "com.telerik.plugindemo.calendar",
   "ProjectName": "Calendar Demo",
   "IsRunnable": "true",
-  "FrameworkVersion": "5.0.0",
+  "FrameworkVersion": "5.2.0",
   "AndroidPermissions": [
     "android.permission.CAMERA",
     "android.permission.VIBRATE",
