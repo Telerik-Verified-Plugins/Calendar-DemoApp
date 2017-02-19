@@ -4,7 +4,7 @@
   "AppIdentifier": "com.telerik.plugindemo.calendar",
   "ProjectName": "Calendar Demo",
   "IsRunnable": "true",
-  "FrameworkVersion": "4.0.0",
+  "FrameworkVersion": "5.0.0",
   "AndroidPermissions": [
     "android.permission.CAMERA",
     "android.permission.VIBRATE",
@@ -27,14 +27,13 @@
   ],
   "CorePlugins": [
     "cordova-plugin-console",
-    "cordova-plugin-crosswalk-webview@1.2.0",
     "cordova-plugin-device",
     "cordova-plugin-dialogs",
     "cordova-plugin-network-information",
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
     "cordova-plugin-vibration",
-    "nl.x-services.plugins.calendar@4.4.7"
+    "nl.x-services.plugins.calendar@4.5.5"
   ],
   "DeviceOrientations": [
     "Portrait",
@@ -47,7 +46,7 @@
     "ID_RESOLUTION_WXGA",
     "ID_RESOLUTION_HD720P"
   ],
-  "BundleVersion": "1.0.3",
+  "BundleVersion": "1.0.4",
   "Description": "Calendar Demo",
   "DisplayName": "Calendar plugin demo",
   "Author": "Telerik",
